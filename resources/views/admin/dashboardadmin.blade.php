@@ -54,7 +54,8 @@
     <p>Manage your coffee shop with ease!</p>
 
     <a href="{{ url('/admin/logout') }}">Logout</a>
-    <a href="{{ url('/admin/dashboardadminsoftdelete') }}">softdelete</a>
+    <a href="{{ url('/admin/dashboardadminsoftdelete') }}">Soft Delete</a>
+    <a href="{{ url('/admin/tambahproduk') }}">Add Product</a>
 
     <h2>Product List</h2>
 
@@ -69,20 +70,24 @@
     <table>
         <thead>
             <tr>
-                <th>ID</th>
+                <th>No</th>
                 <th>Name</th>
                 <th>Price</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
+            @php
+            $counter = 1;
+            @endphp
+
             @foreach($produk as $p)
             <tr>
-                <td>{{ $p->produk_id }}</td>
+                <td>{{ $counter++ }}</td>
                 <td>{{ $p->produk_nama }}</td>
                 <td>${{ $p->harga }}</td>
                 <td>
-                    <a href="{{ url('/admin/edit-product/'.$p->produk_id) }}">Edit</a>
+                    <a href="{{ url('/admin/editproduk/'.$p->produk_id) }}">Edit</a>
                     <a href="{{ url('/admin/softdelete/'.$p->produk_id) }}">Soft Delete</a>
                     <a href="{{ url('/admin/harddelete/'.$p->produk_id) }}" onclick="return confirm('Are you sure?')">Hard Delete</a>
                 </td>

@@ -121,6 +121,76 @@ class Admin extends Controller
         return redirect('/admin/dashboardadmin')->with('harddelete', 'Produk dihapus secara permanen');
     }
 
+    public function editProduct($id)
+    {
+        // Pastikan admin sudah login
+        if (!Session::has('admin')) {
+            return redirect('/loginadmin');
+        }
+
+        // Mengambil data produk berdasarkan ID
+        $product = DB::table('produk')->where('produk_id', $id)->first();
+
+        // Tampilkan halaman edit produk dengan data produk
+        return view('../admin/editproduk', ['product' => $product]);
+    }
+
+    public function updateProduct(Request $request, $id)
+    {
+        // Pastikan admin sudah login
+        if (!Session::has('admin')) {
+            return redirect('/loginadmin');
+        }
+
+        // Validasi form jika diperlukan
+
+        // Update data produk berdasarkan ID
+        DB::table('produk')
+            ->where('produk_id', $id)
+            ->update([
+                'produk_nama' => $request->input('produk_nama'),
+                'harga' => $request->input('harga'),
+                // Add other fields as needed
+            ]);
+
+        // Redirect kembali ke dashboard dengan pesan sukses
+        return redirect('/admin/dashboardadmin')->with('update', 'Produk berhasil diupdate');
+    }
+
+    public function tambahProduk()
+    {
+        // Pastikan admin sudah login
+        if (!Session::has('admin')) {
+            return redirect('/loginadmin');
+        }
+
+        // Tampilkan halaman tambah produk
+        return view('../admin/tambahproduk');
+    }
+
+    public function simpanProduk(Request $request)
+    {
+        // Pastikan admin sudah login
+        if (!Session::has('admin')) {
+            return redirect('/loginadmin');
+        }
+
+        // Validasi form jika diperlukan
+
+        // Simpan data produk baru
+        DB::table('produk')->insert([
+            'produk_nama' => $request->input('produk_nama'),
+            'harga' => $request->input('harga'),
+            'softdelete' => 0,
+            // Add other fields as needed
+        ]);
+
+        // Redirect kembali ke dashboard dengan pesan sukses
+        return redirect('/admin/dashboardadmin')->with('addproduct', 'Product added successfully');
+    }
+
+
+
 
     public function logout()
     {

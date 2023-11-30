@@ -30,6 +30,7 @@
     @enderror
 
     <a href="{{ url('/') }}">Home</a>
+    <a href="{{ url('/pengguna/tambahuser') }}">Daftar</a>
 
 </body>
 
