@@ -95,6 +95,35 @@
             @endforeach
         </tbody>
     </table>
+
+    <h2>Order List</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Order ID</th>
+                <th>Customer Name</th>
+                <th>Product Name</th>
+                <th>Total Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @php
+            $orderCounter = 1;
+            @endphp
+
+            @foreach($orderData as $order)
+            <tr>
+                <td>{{ $orderCounter++ }}</td>
+                <td>{{ $order->pesanan_id }}</td>
+                <td>{{ $order->customer_name }}</td>
+                <td>{{ $order->produk_nama }}</td>
+                <td>{{ $order->total_amount }}</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 </body>
 
 </html>

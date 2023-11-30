@@ -46,15 +46,18 @@ class Admin extends Controller
         // Mendapatkan data pencarian dari formulir
         $searchTerm = $request->input('search');
 
-        // Mengambil data produk dari tabel dengan Query Builder dengan filter pencarian dan softdelete
-        $produk = DB::table('produk')
-            ->select('produk_id', 'produk_nama', 'harga')
-            ->where('produk_nama', 'like', "%$searchTerm%")
-            ->where('softdelete', 0) // Hanya tampilkan data yang softdelete = 0
+        // Query Join untuk mendapatkan data pesanan, pelanggan, dan produk
+        $orderData = DB::table('pesanan')
+            ->join('pelanggan', 'pesanan.customer_id', '=', 'pelanggan.customer_id')
+            ->join('produk', 'pesanan.produk_id', '=', 'produk.produk_id')
+            ->select('pesanan.pesanan_id', 'pelanggan.customer_name', 'produk.produk_nama', 'pesanan.total_amount')
             ->get();
 
-        // Tampilkan halaman dashboard admin dengan data produk
-        return view('../admin/dashboardadmin', ['produk' => $produk]);
+        // Query untuk mendapatkan data produk
+        $produk = DB::table('produk')->get();
+
+        // Mengirimkan data ke view
+        return view('/admin/dashboardadmin', ['orderData' => $orderData, 'produk' => $produk]);
     }
 
     public function showSoftdelete(Request $request)
