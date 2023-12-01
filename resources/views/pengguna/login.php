@@ -1,96 +1,36 @@
+<!-- resources/views/admin/login.blade.php -->
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Admin Dashboard</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-
-        h1 {
-            color: #4CAF50;
-        }
-
-        p {
-            color: #333;
-        }
-
-        table {
-            width: 80%;
-            margin: 20px auto;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        a {
-            display: inline-block;
-            margin: 10px;
-            padding: 10px 20px;
-            text-decoration: none;
-            background-color: #4CAF50;
-            color: #fff;
-            border-radius: 5px;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Admin</title>
 </head>
 
 <body>
-    <h1>Welcome to the Admin Dashboard</h1>
 
-    <p>Manage your coffee shop with ease!</p>
+    <h2>Login Admin</h2>
 
-    <a href="{{ url('/admin/logout') }}">Logout</a>
-    <a href="{{ url('/admin/dashboardadmin') }}">dashboardadmin</a>
+    <form method="POST" action="{{ url('/loginadmin') }}">
+        @csrf
 
+        <label for="nama">Nama:</label>
+        <input type="text" name="nama" required>
 
-    <h2>Product List</h2>
+        <label for="password">Password:</label>
+        <input type="password" name="password" required>
 
-    <!-- Formulir Pencarian -->
-    <form action="{{ url('/admin/dashboardadminsoftdelete') }}" method="GET">
-        <label for="search">Search by Product Name:</label>
-        <input type="text" id="search" name="search" value="{{ request('search') }}">
-        <button type="submit">Search</button>
+        <button type="submit">Login</button>
     </form>
 
+    @error('login')
+    <div style="color: red;">{{ $message }}</div>
+    @enderror
 
-    <!-- Tabel Produk -->
-    <table>
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($produk as $key => $p)
-            <tr>
-                <td>{{ $key + 1 }}</td>
-                <td>{{ $p->produk_nama }}</td>
-                <td>${{ $p->harga }}</td>
-                <td>
-                    <a href="{{ url('/admin/restore/'.$p->produk_id) }}">Restore</a>
-                    <a href="{{ url('/admin/harddelete/'.$p->produk_id) }}" onclick="return confirm('Are you sure?')">Hard Delete</a>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <a href="{{ url('/') }}">Home</a>
+
 </body>
 
 </html>

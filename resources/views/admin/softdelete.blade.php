@@ -83,9 +83,9 @@
                         <i class="uil uil-trash"></i>
                         <span class="link-name">Soft Delete</span>
                     </a></li>
-                <li><a href="#">
-                        <i class="uil uil-chart"></i>
-                        <span class="link-name">Analytics</span>
+                <li><a href="{{ url('/admin/tambahproduk') }}">
+                        <i class="uil uil-plus"></i>
+                        <span class="link-name">Tambah Produk</span>
                     </a></li>
                 <li><a href="#">
                         <i class="uil uil-thumbs-up"></i>
