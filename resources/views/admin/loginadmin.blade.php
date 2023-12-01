@@ -1,36 +1,58 @@
-<!-- resources/views/admin/login.blade.php -->
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Admin</title>
+    <meta charset="utf-8">
+    <link href="../css/login.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .content {
+            position: relative;
+        }
+
+        .back-icon {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
 </head>
 
 <body>
+    <div class="content">
+        <div class="back-icon">
+            <a href="{{ url('/') }}"><i class="fas fa-chevron-left"></i></a>
+        </div>
 
-    <h2>Login Admin</h2>
+        <div class="text">
+            Login Admin
+        </div>
 
-    <form method="POST" action="{{ url('/loginadmin') }}">
-        @csrf
+        @if(session('success'))
+        <div style="color: green;">{{ session('success') }}</div>
+        @endif
 
-        <label for="nama">Nama:</label>
-        <input type="text" name="nama" required>
+        <form method="POST" action="{{ url('/loginadmin') }}">
+            @csrf
+            <div class="field">
+                <input type="text" name="nama" required>
+                <span class="fas fa-user"></span>
+                <label for="nama">Nama</label>
+            </div>
 
-        <label for="password">Password:</label>
-        <input type="password" name="password" required>
-
-        <button type="submit">Login</button>
-    </form>
-
-    @error('login')
-    <div style="color: red;">{{ $message }}</div>
-    @enderror
-
-    <a href="{{ url('/') }}">Home</a>
-
+            <div class="field">
+                <input type="password" name="password" required>
+                <span class="fas fa-lock"></span>
+                <label for="password">Password</label>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
 </body>
 
 </html>

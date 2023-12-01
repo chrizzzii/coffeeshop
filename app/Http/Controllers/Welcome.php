@@ -11,10 +11,15 @@ class Welcome extends Controller
     {
         // Mengambil data produk dari tabel dengan Query Builder
         $produk = DB::table('produk')
-            ->select('produk_id', 'produk_nama', 'harga')
+            ->select('produk_id', 'produk_nama', 'deskripsi', 'kategori', 'harga')
             ->get();
 
         // Mengirim data produk ke view welcome
         return view('welcome', ['produk' => $produk]);
+    }
+
+    public function about()
+    {
+        return view('about');
     }
 }

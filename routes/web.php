@@ -18,6 +18,7 @@ use App\Http\Controllers\User;
 */
 
 Route::get('/', [Welcome::class, 'index']);
+Route::get('/about', [Welcome::class, 'about']);
 
 
 Route::get('/loginadmin', [Admin::class, 'showLoginForm']);

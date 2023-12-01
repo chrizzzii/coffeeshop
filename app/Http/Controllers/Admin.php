@@ -47,18 +47,37 @@ class Admin extends Controller
         $searchTerm = $request->input('search');
 
         // Query Join untuk mendapatkan data pesanan, pelanggan, dan produk
-        $orderData = DB::table('pesanan')
+        $orderDataQuery = DB::table('pesanan')
             ->join('pelanggan', 'pesanan.customer_id', '=', 'pelanggan.customer_id')
             ->join('produk', 'pesanan.produk_id', '=', 'produk.produk_id')
-            ->select('pesanan.pesanan_id', 'pelanggan.customer_name', 'produk.produk_nama', 'pesanan.total_amount')
-            ->get();
+            ->select('pesanan.pesanan_id', 'pelanggan.customer_name', 'produk.produk_nama', 'pesanan.total_amount');
+
+        // Jika terdapat pencarian, tambahkan kondisi where
+        if ($searchTerm) {
+            $orderDataQuery->where(function ($query) use ($searchTerm) {
+                $query->where('pelanggan.customer_name', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('produk.produk_nama', 'like', '%' . $searchTerm . '%');
+            });
+        }
+
+        // Eksekusi query dan ambil hasil
+        $orderData = $orderDataQuery->get();
 
         // Query untuk mendapatkan data produk
-        $produk = DB::table('produk')->get();
+        $produkQuery = DB::table('produk');
+
+        // Jika terdapat pencarian, tambahkan kondisi where
+        if ($searchTerm) {
+            $produkQuery->where('produk_nama', 'like', '%' . $searchTerm . '%');
+        }
+
+        // Eksekusi query dan ambil hasil
+        $produk = $produkQuery->get();
 
         // Mengirimkan data ke view
         return view('/admin/dashboardadmin', ['orderData' => $orderData, 'produk' => $produk]);
     }
+
 
     public function showSoftdelete(Request $request)
     {
@@ -73,7 +92,7 @@ class Admin extends Controller
 
         // Mengambil data produk dari tabel dengan Query Builder dengan filter pencarian dan softdelete
         $produk = DB::table('produk')
-            ->select('produk_id', 'produk_nama', 'harga')
+            ->select('produk_id', 'produk_nama', 'deskripsi', 'kategori', 'harga')
             ->where('produk_nama', 'like', "%$searchTerm%")
             ->where('softdelete', 1) // Hanya tampilkan data yang softdelete = 0
             ->get();
