@@ -61,17 +61,23 @@
 <body>
     <form action="{{ url('/admin/updateproduct/'.$product->produk_id) }}" method="post">
         @csrf
-        <h1>Edit Product</h1>
+        <h1>Edit Produk</h1>
 
-        <label for="produk_nama">Product Name:</label>
+        <label for="produk_nama">Nama Produk:</label>
         <input type="text" id="produk_nama" name="produk_nama" value="{{ $product->produk_nama }}" required>
 
-        <label for="harga">Product Price:</label>
+        <label for="deskripsi">Deskripsi:</label>
+        <input type="text" id="deskripsi" name="deskripsi" value="{{ $product->deskripsi }}" required>
+
+        <label for="kategori">Kategori:</label>
+        <input type="text" id="kategori" name="kategori" value="{{ $product->kategori }}" required>
+
+        <label for="harga">Harga:</label>
         <input type="text" id="harga" name="harga" value="{{ $product->harga }}" required>
 
         <!-- Add other fields as needed -->
 
-        <button type="submit">Update Product</button>
+        <button type="submit">Update Produk</button>
     </form>
 </body>
 

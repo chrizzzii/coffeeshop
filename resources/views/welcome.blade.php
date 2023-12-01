@@ -40,7 +40,6 @@
                 <div class="navbar-nav ml-auto p-4">
                     <a href="index.html" class="nav-item nav-link active">Home</a>
                     <a href="{{ url('/about') }}" class="nav-item nav-link">About</a>
-                    <a href="menu.html" class="nav-item nav-link">Menu</a>
                     <a href="{{ url('/loginuser') }}" class="nav-item nav-link">Pesan</a>
                     <a href="{{ url('/loginadmin') }}" class="nav-item nav-link">Admin</a>
                 </div>

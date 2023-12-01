@@ -49,8 +49,8 @@
 
             <div class="field">
                 <input type="email" name="email" required>
-                <span class="fas fa-user"></span>
-                <label for="email">Email:</label>
+                <span class="fas fa-envelope"></span>
+                <label for="email">Email</label>
             </div>
 
             <div class="field">

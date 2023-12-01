@@ -171,6 +171,8 @@ class Admin extends Controller
             ->where('produk_id', $id)
             ->update([
                 'produk_nama' => $request->input('produk_nama'),
+                'deskripsi' => $request->input('deskripsi'),
+                'kategori' => $request->input('kategori'),
                 'harga' => $request->input('harga'),
                 // Add other fields as needed
             ]);
@@ -202,6 +204,8 @@ class Admin extends Controller
         // Simpan data produk baru
         DB::table('produk')->insert([
             'produk_nama' => $request->input('produk_nama'),
+            'deskripsi' => $request->input('deskripsi'),
+            'kategori' => $request->input('kategori'),
             'harga' => $request->input('harga'),
             'softdelete' => 0,
             // Add other fields as needed

@@ -150,8 +150,9 @@ class User extends Controller
 
         // Ambil data dari formulir
         $data = [
-            'customer_name' => $request->input('customer_name'),
+            'customer_name' => $request->input('nama'),
             'email' => $request->input('email'),
+            'password' => $request->input('password'),
         ];
 
         // Check if a new password is provided and update the password if needed
