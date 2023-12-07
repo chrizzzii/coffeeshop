@@ -10,7 +10,13 @@ class Admin extends Controller
 {
     public function showLoginForm()
     {
-        return view('../admin/loginadmin');
+
+        if (Session::has('admin')) {
+            // Jika sudah login, redirect ke halaman dashboardadmin
+            return redirect('/admin/dashboardadmin');
+        } else {
+            return view('../admin/loginadmin');
+        }
     }
 
     public function login(Request $request)

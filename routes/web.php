@@ -40,8 +40,6 @@ Route::get('/admin/harddelete/{id}', [Admin::class, 'harddelete']);
 
 
 
-
-
 Route::get('/pengguna/tambahuser', [User::class, 'tambahuser']);
 Route::post('/pengguna/terimauser', [User::class, 'terimauser']);
 
